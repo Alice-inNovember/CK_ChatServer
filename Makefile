@@ -1,27 +1,24 @@
 #NAME------------------------------------------------------
-NAME	=	ChatServer
+NAME		=	ChatServer
 #CMDS------------------------------------------------------
-CXX		=	c++
-RM		=	rm -rf
+CXX			=	c++
+RM			=	rm -rf
 #FLAGS-----------------------------------------------------
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
 #FILES-----------------------------------------------------
-SRCS	=	main.cpp
-OBJS	=	$(SRCS:.cpp=.o)
+SRCS		=	main.cpp \
+				Client.cpp \
+				ClientManager.cpp \
+				Util.cpp
+OBJS		=	$(SRCS:.cpp=.o)
 #COLOR-----------------------------------------------------
-# C_OFF	=	"\033[0m"
-# C_RED	=	"\033[1;31m"
-# C_GRN	=	"\033[1;32m"
-# C_BLE	=	"\033[1;34m"
-# C_PLE	=	"\033[1;35m"
-# C_CYN	=	"\033[1;36m"
-C_OFF	=
-C_RED	=
-C_GRN	=
-C_BLE	=
-C_PLE	=
-C_CYN	=
-INFO	=
+C_OFF		=	"\033[0m"
+C_RED		=	"\033[1;31m"
+C_GRN		=	"\033[1;32m"
+C_BLE		=	"\033[1;34m"
+C_PLE		=	"\033[1;35m"
+C_CYN		=	"\033[1;36m"
+INFO		=
 #PRINTER---------------------------------------------------
 define P_STAT
 	$(eval INFO = $(shell echo $(1)$(C_OFF)))
