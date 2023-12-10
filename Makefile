@@ -6,10 +6,7 @@ RM			=	rm -rf
 #FLAGS-----------------------------------------------------
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
 #FILES-----------------------------------------------------
-SRCS		=	main.cpp \
-				Client.cpp \
-				ClientManager.cpp \
-				Util.cpp
+SRCS		=	main.cpp
 OBJS		=	$(SRCS:.cpp=.o)
 #COLOR-----------------------------------------------------
 C_OFF		=	"\033[0m"
