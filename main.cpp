@@ -7,6 +7,8 @@ int main(void)
 {
 	t_svData svData;
 
+	std::cout << "Server Starting     ..." << std::endl;
+	std::cout << "Listen soket Create ..." << std::endl;
 	//listen soket 생성
 	{
 		socklen_t addrLen;
@@ -41,6 +43,7 @@ int main(void)
 			errExit("ERROR : listenFd bind()");
 	}
 
+	std::cout << "Epoll Setting       ..." << std::endl;
 	//epoll 설정
 	{
 		int returnVal;
@@ -64,6 +67,7 @@ int main(void)
 		memset(getUserFds(), 0, sizeof(int) * MAX_USER);
 	}
 
+	std::cout << "Start!              ..." << std::endl;
 	while (1) {
 		// 사건 발생 시까지 무한 대기
 		// epollFd의 사건 발생 시 events에 fd를 채운다.
