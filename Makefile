@@ -8,9 +8,9 @@ CXXFLAGS	=	-Wall -Wextra -Werror
 #FILES-----------------------------------------------------
 INCS		=	./Incs
 SRCS		=	main.cpp\
-				UserChatEvent.cpp\
-				UserConnectEvent.cpp\
-				UserUtil.cpp
+				ChatEvent.cpp\
+				ConnectEvent.cpp\
+				Util.cpp
 OBJS		=	$(SRCS:.cpp=.o)
 #COLOR-----------------------------------------------------
 C_OFF		=	"\033[0m"

@@ -54,7 +54,6 @@ void sendNotification(int fd, const char* msg)
 
 void userChatEvent(t_svData& svData, int i)
 {
-	int readLen;
 	char arg1[DS_ARG];
 	char arg2[DS_ARG];
 	char text[DS_TEXT];
