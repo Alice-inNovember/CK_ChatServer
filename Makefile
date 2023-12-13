@@ -4,9 +4,13 @@ NAME		=	ChatServer
 CXX			=	c++
 RM			=	rm -rf
 #FLAGS-----------------------------------------------------
-CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
+CXXFLAGS	=	-Wall -Wextra -Werror
 #FILES-----------------------------------------------------
-SRCS		=	main.cpp
+INCS		=	./Incs
+SRCS		=	main.cpp\
+				UserChatEvent.cpp\
+				UserConnectEvent.cpp\
+				UserUtil.cpp
 OBJS		=	$(SRCS:.cpp=.o)
 #COLOR-----------------------------------------------------
 C_OFF		=	"\033[0m"
@@ -27,13 +31,13 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	$(call P_STAT,$(C_BLE)Compiling)
 
-	@$(CXX) $(CXXFLAGS) -o $@ $^
+	@$(CXX) $(CXXFLAGS) -o $@ $^ -I INCS
 	$(call P_STAT,$(C_PLE)$(NAME)"   "✅)
 
 	$(call P_STAT,$(C_GRN)Done!)
 #OBJS------------------------------------------------------
 %.o : %.cpp
-	@$(CXX) $(CXXFLAGS) -c $< -o $@ 
+	@$(CXX) $(CXXFLAGS) -c $< -o $@ -I INCS
 #CLEAN-----------------------------------------------------
 clean :
 	$(call P_STAT,$(C_RED)Cleaning)

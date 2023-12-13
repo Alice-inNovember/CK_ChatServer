@@ -1,5 +1,7 @@
-#ifndef data_HPP
-#define data_HPP
+#ifndef Data_HPP
+#define Data_HPP
+
+#include "Includes.hpp"
 
 #define PORT_NBR 25000
 
@@ -9,9 +11,7 @@
 
 //전송 데이터 사이즈
 #define DS_TEXT 512
-#define DS_NAME 16
-#define DS_CHANNEL 16
-#define DS_CMD 32
+#define DS_ARG 16
 
 //구조체
 typedef struct epoll_event t_epollEvent;
@@ -23,7 +23,16 @@ typedef struct s_userData
 {
 	int fd;
 	int channel;
-	char name[DS_NAME];
+	char name[DS_ARG + 1];
 } t_userData;
+
+typedef struct s_svData
+{
+	t_sockAddrIn addrIn;
+	t_epollEvent listenEv;
+	t_epollEvent* userEv;
+	int epollFd;
+	int listenFd;
+} t_svData;
 
 #endif
