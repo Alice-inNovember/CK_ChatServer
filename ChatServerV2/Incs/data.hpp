@@ -3,6 +3,11 @@
 
 #include "common.hpp"
 
+//색상
+#define C_NOMAL "\033[0m"
+#define C_ERROR "\033[1;31m"
+#define C_NOTIY "\033[1;34m"
+
 //포트
 #define PORT_NBR 25000
 

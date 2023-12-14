@@ -82,6 +82,7 @@ void UserEvent(t_data* data, t_userData* userData)
 	}
 	//읽기 실패시 유저 삭제
 	catch (std::string msg) {
+		std::cerr << C_ERROR << msg << std::endl;
 		RemoveUser(data, userData);
 		return;
 	}
@@ -91,8 +92,8 @@ void UserEvent(t_data* data, t_userData* userData)
 	inet_ntop(AF_INET, &(userData->addr.sin_addr), ipAddr, INET_ADDRSTRLEN);
 
 	//서버 메시지 출력
-	std::cout << "USER   : [" << ipAddr << "]" << std::endl;
-	std::cout << arg1 << ", " << arg2 << ", " << text << std::endl;
+	std::cout << C_NOTIY << "USER   : [" << ipAddr << "]" << std::endl;
+	std::cout << C_NOMAL << arg1 << ", " << arg2 << ", " << text << std::endl;
 
 	//nick chainge
 	if (std::string("arg1") == std::string("/nick")) {
@@ -101,7 +102,6 @@ void UserEvent(t_data* data, t_userData* userData)
 		std::string temp("nickName Changed to : ");
 		temp += userData->name;
 		SendNotification(userData->fd, temp.data());
-		std::cout << "" << std::endl;
 	}
 	//join channel
 	else if (std::string("arg1") == std::string("/join")) {
@@ -153,8 +153,8 @@ void NewUeserEvent(t_data* data)
 	inet_ntop(AF_INET, &(addr.sin_addr), ipAddr, INET_ADDRSTRLEN);
 
 	//서버 메시지 출력
-	std::cout << "SERVER : New User accept()" << std::endl;
-	std::cout << "INFO   : " << ipAddr << ", " << port << std::endl;
+	std::cout << C_NOTIY << "SERVER : New User accept()" << std::endl;
+	std::cout << C_NOMAL << "INFO   : " << ipAddr << ", " << port << std::endl;
 
 	//option
 	int bEnable = 1;
