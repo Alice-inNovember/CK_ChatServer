@@ -91,17 +91,14 @@ int main(int argc, char** argv)
 	try {
 		std::cout << "SERVER : Server Init" << std::endl;
 
-		std::cout << "SERVER : Server Data Init ";
+		std::cout << "SERVER : Server Data Init " << std::endl;
 		InitData(&data);
-		std::cout << "Finish! " << std::endl;
 
 		std::cout << "SERVER : Server ServerSock Init " << std::endl;
 		InitServerSock(&data);
-		std::cout << "Finish! " << std::endl;
 
 		std::cout << "SERVER : Server Epoll Init " << std::endl;
 		InitEpoll(&data);
-		std::cout << "Finish! " << std::endl;
 
 		std::cout << "SERVER : Server Start!" << std::endl;
 		ServerLoop(&data);
