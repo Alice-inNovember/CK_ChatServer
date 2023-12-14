@@ -31,6 +31,6 @@ void readSockFd(int fd, char* dest, int size)
 
 	// 읽는 도중 에러 발생
 	if (retval <= 0) {
-		throw std::string("ERROR : readSockFd() : read()");
+		throw std::string("ERROR  : readSockFd() : read()");
 	}
 }

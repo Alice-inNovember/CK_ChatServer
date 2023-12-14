@@ -38,7 +38,7 @@ void userConnectEvent(t_svData& svData)
 		clientLen = sizeof(t_sockAddr);
 		clientFd =
 			accept(svData.listenFd, (t_sockAddr*)&clientAddr, &clientLen);
-		throw std::string("ERROR : accept()");
+		throw std::string("ERROR  : accept()");
 
 		//sockopt
 		int bEnable = 1;
@@ -53,8 +53,9 @@ void userConnectEvent(t_svData& svData)
 	//에러 발생시 소켓 종료 후 리턴
 	catch (std::string msg) {
 		close(clientFd);
-		std::cerr << "ERROR : " << msg << std::endl;
-		std::cerr << "ERROR : " << clientFd << "CreateUser() fail" << std::endl;
+		std::cerr << "ERROR  : " << msg << std::endl;
+		std::cerr << "ERROR  : " << clientFd << "CreateUser() fail"
+				  << std::endl;
 		return;
 	}
 

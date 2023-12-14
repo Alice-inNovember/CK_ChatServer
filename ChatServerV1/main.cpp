@@ -18,7 +18,7 @@ int main(void)
 		addrLen = sizeof(t_sockAddrIn);
 		svData.listenFd = socket(AF_INET, SOCK_STREAM, 0);
 		if ((svData.listenFd) == -1)
-			errExit("ERROR : listenFd socket()");
+			errExit("ERROR  : listenFd socket()");
 
 		//socket
 		svData.addrIn.sin_family = AF_INET;
@@ -35,12 +35,12 @@ int main(void)
 		//bind
 		returnVal = bind(svData.listenFd, (t_sockAddr*)&svData.addrIn, addrLen);
 		if (returnVal == -1)
-			errExit("ERROR : listenFd bind()");
+			errExit("ERROR  : listenFd bind()");
 
 		//listen
 		returnVal = listen(svData.listenFd, 16);
 		if (returnVal == -1)
-			errExit("ERROR : listenFd bind()");
+			errExit("ERROR  : listenFd bind()");
 	}
 
 	std::cout << "Epoll Setting       ..." << std::endl;
@@ -54,7 +54,7 @@ int main(void)
 		// epoll 파일 디스크립터를 만든다. size 는 0 이상이면 됨;
 		svData.epollFd = epoll_create(64);
 		if ((svData.epollFd) == -1)
-			errExit("ERROR : epoll_create()");
+			errExit("ERROR  : epoll_create()");
 
 		// 이벤트 설정
 		svData.listenEv.events = EPOLLIN;
@@ -63,7 +63,7 @@ int main(void)
 		returnVal = epoll_ctl(svData.epollFd, EPOLL_CTL_ADD, svData.listenFd,
 							  &svData.listenEv);
 		if (returnVal == -1)
-			errExit("ERROR : epoll_ctl()");
+			errExit("ERROR  : epoll_ctl()");
 		memset(getUserFds(), 0, sizeof(int) * MAX_USER);
 	}
 
@@ -75,7 +75,7 @@ int main(void)
 		int eventCnt =
 			epoll_wait(svData.epollFd, svData.userEv, EPOLL_SIZE, -1);
 		if (eventCnt == -1)
-			errExit("ERROR : epoll_wait()");
+			errExit("ERROR  : epoll_wait()");
 		for (int i = 0; i < eventCnt; i++) {
 			// 듣기 소켓에서 이벤트가 발생 (새로운 연결)
 			if (svData.userEv[i].data.fd == svData.listenFd)
