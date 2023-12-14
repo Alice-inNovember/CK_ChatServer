@@ -6,6 +6,7 @@
 //색상
 #define C_NOMAL "\033[0m"
 #define C_ERROR "\033[1;31m"
+#define C_STATE "\033[1;32m"
 #define C_NOTIY "\033[1;34m"
 
 //포트
