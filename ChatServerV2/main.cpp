@@ -62,7 +62,6 @@ static void ServerLoop(t_data* data)
 	epEvents = new t_epollEvent[EP_EVENT_SIZE];
 	while (1) {
 		eventCnt = epoll_wait(data->epFd, epEvents, EP_EVENT_SIZE, -1);
-		std::cout << C_NOTIY << "SERVER : epoll_wait() Event!" << std::endl;
 
 		if (eventCnt == -1)
 			throw std::string("ERROR  : failed epoll_wait()");
