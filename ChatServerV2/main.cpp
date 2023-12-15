@@ -50,8 +50,6 @@ static void InitEpoll(t_data* data)
 //서버 데이터 구조체 초기화
 static void InitData(t_data* data)
 {
-	if (data == NULL)
-		throw std::string("ERROR  : failed epoll_ctl(), svFd EPOLL_CTL_ADD");
 	memset(data, 0, sizeof(t_data));
 }
 
@@ -64,6 +62,8 @@ static void ServerLoop(t_data* data)
 	epEvents = new t_epollEvent[EP_EVENT_SIZE];
 	while (1) {
 		eventCnt = epoll_wait(data->epFd, epEvents, EP_EVENT_SIZE, -1);
+		std::cout << C_NOTIY << "SERVER : epoll_wait() Event!" << std::endl;
+
 		if (eventCnt == -1)
 			throw std::string("ERROR  : failed epoll_wait()");
 

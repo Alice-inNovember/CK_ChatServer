@@ -143,7 +143,7 @@ void NewUeserEvent(t_data* data)
 	socklen_t cliLen;
 
 	//user accept()
-	cliLen = sizeof(struct sockaddr);
+	cliLen = sizeof(t_sockAddr);
 	userFd = accept(data->svFd, (t_sockAddr*)&addr, &cliLen);
 	data->userState[userFd] = 1;	// 연결 처리
 
