@@ -149,7 +149,8 @@ void NewUeserEvent(t_data* data)
 
 	//ip 정보 가져오기
 	int port = ntohs(addr.sin_port);
-	char ipAddr[INET_ADDRSTRLEN];
+	char ipAddr[INET_ADDRSTRLEN + 1];
+	ipAddr[INET_ADDRSTRLEN] = 0;
 	inet_ntop(AF_INET, &(addr.sin_addr), ipAddr, INET_ADDRSTRLEN);
 
 	//서버 메시지 출력
