@@ -48,12 +48,15 @@ void SendNotification(int fd, const char* msg)
 }
 
 // 메시지를 모든 유저(client)에게 전송
-void SendMessage(t_data* data, char* arg1, char* arg2, char* msg)
+void SendMessage(t_data* data, t_userData userData, char* arg1, char* arg2,
+				 char* msg)
 {
 	char* buff = CombinedMessage(arg1, arg2, msg);
 
 	for (int i = 0; i < MAX_USER; i++) {
 		//접속된 유저이면
+		if (userData.fd == i)
+			continue;
 		if (data->userState[i] == 1 && data->userChannel[i] == atoi(arg1)) {
 			write(i, buff, DS_ARGV + DS_ARGV + DS_TEXT);
 		}
