@@ -149,13 +149,10 @@ void NewUeserEvent(t_data* data)
 
 	//ip 정보 가져오기
 	int port = ntohs(addr.sin_port);
-	char ipAddr[INET_ADDRSTRLEN + 1];
-	ipAddr[INET_ADDRSTRLEN] = 0;
-	inet_ntop(AF_INET, &(addr.sin_addr), ipAddr, INET_ADDRSTRLEN);
 
 	//서버 메시지 출력
 	std::cout << C_NOTIY << "SERVER : New User accept()" << std::endl;
-	std::cout << C_NOMAL << "INFO   : " << ipAddr << ", " << port << std::endl;
+	std::cout << C_NOMAL << "INFO   : " << port << std::endl;
 
 	//option
 	int bEnable = 1;
