@@ -109,6 +109,7 @@ void UserEvent(t_data* data, t_userData* userData)
 		std::cout << C_NOTIY << "CMD    : /join" << C_NOMAL << std::endl;
 
 		userData->ch = atoi(arg2);
+		data->userChannel[userData->fd] = atoi(arg2);
 
 		char temp[512] = "Joind Channel : ";
 		strcat(temp, userData->name);
@@ -119,6 +120,7 @@ void UserEvent(t_data* data, t_userData* userData)
 		std::cout << C_NOTIY << "CMD    : /leave" << C_NOMAL << std::endl;
 
 		userData->ch = 0;
+		data->userChannel[userData->fd] = 0;
 
 		char temp[512] = "Joind Channel : ";
 		strcat(temp, userData->name);
