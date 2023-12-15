@@ -41,9 +41,6 @@ void SendNotification(int fd, const char* msg)
 {
 	char arg1[DS_ARGV] = "-1";
 	char arg2[DS_ARGV] = "<SERVER>";
-	char text[DS_TEXT];
-	memset(text, 0, DS_TEXT);
-	memcpy(text, msg, DS_TEXT);
 
 	char* buff = CombinedMessage(arg1, arg2, msg);
 	write(fd, buff, (DS_ARGV * 2) + DS_TEXT);
