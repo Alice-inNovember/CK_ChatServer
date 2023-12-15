@@ -38,6 +38,7 @@ typedef struct s_userData
 typedef struct s_data
 {
 	int userState[MAX_USER];
+	int userChannel[MAX_USER];
 	t_epollEvent epEvent;
 	int epFd;
 	int svFd;

@@ -87,25 +87,29 @@ int main(int argc, char** argv)
 
 	//Init
 	try {
-		std::cout << C_STATE << "SERVER : Server Init" << std::endl;
+		std::cout << C_STATE << "SERVER : Server Init" << C_NOMAL << std::endl;
 
-		std::cout << C_STATE << "SERVER : Server Data Init " << std::endl;
+		std::cout << C_STATE << "SERVER : Server Data Init " << C_NOMAL
+				  << std::endl;
 		InitData(&data);
 
-		std::cout << C_STATE << "SERVER : Server ServerSock Init " << std::endl;
+		std::cout << C_STATE << "SERVER : Server ServerSock Init " << C_NOMAL
+				  << std::endl;
 		InitServerSock(&data);
 
-		std::cout << C_STATE << "SERVER : Server Epoll Init " << std::endl;
+		std::cout << C_STATE << "SERVER : Server Epoll Init " << C_NOMAL
+				  << std::endl;
 		InitEpoll(&data);
 
-		std::cout << C_STATE << "SERVER : Server Start!" << std::endl;
+		std::cout << C_STATE << "SERVER : Server Start!" << C_NOMAL
+				  << std::endl;
 		ServerLoop(&data);
 	}
 	//Critical error
 	catch (std::string msg) {
-		std::cerr << C_ERROR << msg << std::endl;
+		std::cerr << C_ERROR << msg << C_NOMAL << std::endl;
 		return (-1);
 	}
 
-	std::cout << C_STATE << "SERVER : Server End!" << std::endl;
+	std::cout << C_STATE << "SERVER : Server End!" << C_NOMAL << std::endl;
 }

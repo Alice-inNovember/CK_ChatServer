@@ -39,7 +39,7 @@ static char* CombinedMessage(char* arg1, char* arg2, const char* msg)
 // 메시지를 하나의 유저(client)에게 전송
 void SendNotification(int fd, const char* msg)
 {
-	char arg1[DS_ARGV] = "0";
+	char arg1[DS_ARGV] = "-1";
 	char arg2[DS_ARGV] = "<SERVER>";
 	char text[DS_TEXT];
 	memset(text, 0, DS_TEXT);
@@ -57,7 +57,7 @@ void SendMessage(t_data* data, char* arg1, char* arg2, char* msg)
 
 	for (int i = 0; i < MAX_USER; i++) {
 		//접속된 유저이면
-		if (data->userState[i] == 1) {
+		if (data->userState[i] == 1 && data->userChannel[i] == atoi(arg1)) {
 			write(i, buff, DS_ARGV + DS_ARGV + DS_TEXT);
 		}
 	}
@@ -82,7 +82,7 @@ void UserEvent(t_data* data, t_userData* userData)
 	}
 	//읽기 실패시 유저 삭제
 	catch (std::string msg) {
-		std::cerr << C_ERROR << msg << std::endl;
+		std::cerr << C_ERROR << msg << C_NOMAL << std::endl;
 		RemoveUser(data, userData);
 		return;
 	}
@@ -92,38 +92,40 @@ void UserEvent(t_data* data, t_userData* userData)
 	inet_ntop(AF_INET, &(userData->addr.sin_addr), ipAddr, INET_ADDRSTRLEN);
 
 	//서버 메시지 출력
-	std::cout << C_NOTIY << "USER   : [" << ipAddr << "]" << std::endl;
-	std::cout << C_NOMAL << "DATA   : " << arg1 << ", " << arg2 << ", " << text
+	std::cout << C_NOTIY << "USER   : [" << ipAddr << "]" << C_NOMAL
 			  << std::endl;
+	std::cout << C_NOMAL << "DATA   : " << arg1 << ", " << arg2 << ", " << text
+			  << C_NOMAL << std::endl;
 
 	//nick chainge
 	if (std::string("arg1") == std::string("/nick")) {
 		memcpy(userData->name, arg2, DS_ARGV);
 
-		std::string temp("nickName Changed to : ");
-		temp += userData->name;
-		SendNotification(userData->fd, temp.data());
+		char temp[512] = "NickName Changed to : ";
+		strcat(temp, userData->name);
+		SendNotification(userData->fd, temp);
 	}
 	//join channel
 	else if (std::string("arg1") == std::string("/join")) {
 		userData->ch = atoi(arg2);
 
-		std::string temp("joind Channel : ");
-		temp += userData->ch;
-		SendNotification(userData->fd, temp.data());
+		char temp[512] = "Joind Channel : ";
+		strcat(temp, userData->name);
+		SendNotification(userData->fd, temp);
 	}
 	//leave channel
 	else if (std::string("arg1") == std::string("/leave")) {
 		userData->ch = 0;
 
-		std::string temp("joind Channel : ");
-		temp += userData->ch;
-		SendNotification(userData->fd, temp.data());
+		char temp[512] = "Joind Channel : ";
+		strcat(temp, userData->name);
+		SendNotification(userData->fd, temp);
 	}
 	//user exit
 	else if (std::string("arg1") == std::string("/exit")) {
-		std::string temp("See You Again!");
-		SendNotification(userData->fd, temp.data());
+		char temp[512] = "See You Again!";
+		strcat(temp, userData->name);
+		SendNotification(userData->fd, temp);
 
 		RemoveUser(data, userData);
 	}
@@ -146,7 +148,6 @@ void NewUeserEvent(t_data* data)
 	//user accept()
 	cliLen = sizeof(t_sockAddr);
 	userFd = accept(data->svFd, (t_sockAddr*)&addr, &cliLen);
-	data->userState[userFd] = 1;	// 연결 처리
 
 	//ip 정보 가져오기
 	int port = ntohs(addr.sin_port);
@@ -155,8 +156,10 @@ void NewUeserEvent(t_data* data)
 	inet_ntop(AF_INET, &(addr.sin_addr), ipAddr, INET_ADDRSTRLEN);
 
 	//서버 메시지 출력
-	std::cout << C_NOTIY << "SERVER : New User accept()" << std::endl;
-	std::cout << C_NOMAL << "INFO   : " << ipAddr << ", " << port << std::endl;
+	std::cout << C_NOTIY << "SERVER : New User accept()" << C_NOMAL
+			  << std::endl;
+	std::cout << C_NOMAL << "INFO   : " << ipAddr << ", " << port << C_NOMAL
+			  << std::endl;
 
 	//option
 	int bEnable = 1;
@@ -167,9 +170,12 @@ void NewUeserEvent(t_data* data)
 	//userData 초기화
 	userData = new t_userData;
 	userData->fd = userFd;
-	userData->ch = -1;
+	userData->ch = 0;
 	userData->addr = addr;
 	memset(userData->name, 0, sizeof(userData->name));
+
+	data->userState[userFd] = 1;	  // 연결 처리
+	data->userChannel[userFd] = 0;	  // 체널
 
 	epEvent.events = EPOLLIN;		// 이벤트 들어오면 알림
 	epEvent.data.fd = userFd;		// fd 설정
