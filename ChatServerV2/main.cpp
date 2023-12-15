@@ -68,8 +68,7 @@ static void ServerLoop(t_data* data)
 			throw std::string("ERROR  : failed epoll_wait()");
 
 		//반환된 eventCnt 만큼 epEvents를 순회하며 수신한 데이터 처리
-		for (int evIdx; evIdx < eventCnt; evIdx++) {
-
+		for (int evIdx = 0; evIdx < eventCnt; evIdx++) {
 			// 새로 연결된 유저(클라이언트)
 			if (epEvents[evIdx].data.fd == data->svFd)
 				NewUeserEvent(data);
