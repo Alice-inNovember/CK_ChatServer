@@ -95,7 +95,7 @@ void UserEvent(t_data* data, t_userData* userData)
 			  << C_NOMAL << std::endl;
 
 	//nick chainge
-	if (std::string("arg1") == std::string("/nick")) {
+	if (std::string(arg1) == std::string("/nick")) {
 		std::cout << C_NOTIY << "CMD    : /nick" << C_NOMAL << std::endl;
 
 		memcpy(userData->name, arg2, DS_ARGV);
@@ -105,7 +105,7 @@ void UserEvent(t_data* data, t_userData* userData)
 		SendNotification(userData->fd, temp);
 	}
 	//join channel
-	else if (std::string("arg1") == std::string("/join")) {
+	else if (std::string(arg1) == std::string("/join")) {
 		std::cout << C_NOTIY << "CMD    : /join" << C_NOMAL << std::endl;
 
 		userData->ch = atoi(arg2);
@@ -115,7 +115,7 @@ void UserEvent(t_data* data, t_userData* userData)
 		SendNotification(userData->fd, temp);
 	}
 	//leave channel
-	else if (std::string("arg1") == std::string("/leave")) {
+	else if (std::string(arg1) == std::string("/leave")) {
 		std::cout << C_NOTIY << "CMD    : /leave" << C_NOMAL << std::endl;
 
 		userData->ch = 0;
@@ -125,7 +125,7 @@ void UserEvent(t_data* data, t_userData* userData)
 		SendNotification(userData->fd, temp);
 	}
 	//user exit
-	else if (std::string("arg1") == std::string("/exit")) {
+	else if (std::string(arg1) == std::string("/exit")) {
 		std::cout << C_NOTIY << "CMD    : /exit" << C_NOMAL << std::endl;
 
 		char temp[512] = "See You Again!";
