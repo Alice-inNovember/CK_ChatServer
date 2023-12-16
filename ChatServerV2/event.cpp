@@ -103,8 +103,8 @@ void UserEvent(t_data* data, t_userData* userData)
 
 		memcpy(userData->name, arg2, DS_ARGV);
 
-		char temp[512] = "NickName Changed to : ";
-		strcat(temp, userData->name);
+		char temp[512];
+		sprintf(temp, "NickName Changed to : %s", userData->name);
 		SendNotification(userData->fd, temp);
 	}
 	//join channel
@@ -114,8 +114,8 @@ void UserEvent(t_data* data, t_userData* userData)
 		userData->ch = atoi(arg2);
 		data->userChannel[userData->fd] = atoi(arg2);
 
-		char temp[512] = "Joind Channel : ";
-		strcat(temp, userData->name);
+		char temp[512];
+		sprintf(temp, "Joind Channel : %d", userData->ch);
 		SendNotification(userData->fd, temp);
 	}
 	//leave channel
@@ -125,8 +125,8 @@ void UserEvent(t_data* data, t_userData* userData)
 		userData->ch = 0;
 		data->userChannel[userData->fd] = 0;
 
-		char temp[512] = "Joind Channel : ";
-		strcat(temp, userData->name);
+		char temp[512];
+		sprintf(temp, "Joind Channel : %d", userData->ch);
 		SendNotification(userData->fd, temp);
 	}
 	//user exit
