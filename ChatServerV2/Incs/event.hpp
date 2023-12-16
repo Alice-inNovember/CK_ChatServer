@@ -15,4 +15,7 @@ void UserEvent(t_data* data, t_userData* userData);
 // 서버(Listen) Fd 에서 이벤트시 호출
 void NewUeserEvent(t_data* data);
 
+// 현 시간 출력 함수 (UTC)
+std::string pTime();
+
 #endif

@@ -13,7 +13,7 @@
 #define PORT_NBR 25000
 
 //서버 설정
-#define MAX_USER 256		// 최대 접속자 수
+#define MAX_USER 512		// 최대 접속자 수
 #define MAX_USER_Q 8		// 최대 접속 대기 큐
 #define EP_INIT_SIZE 16		// epoll_create() 초기 크기
 #define EP_EVENT_SIZE 16	// epoll_wait() maxevents

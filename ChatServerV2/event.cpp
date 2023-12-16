@@ -1,9 +1,19 @@
 #include "Incs/common.hpp"
 #include "Incs/data.hpp"
 
+std::string pTime()
+{
+	std::time_t now = std::time(0);
+	std::tm* now_tm = std::gmtime(&now);
+	char buf[42];
+	std::strftime(buf, 42, "%Y/%m/%d %X", now_tm);
+	return buf;
+}
+
 static void RemoveUser(t_data* data, t_userData* userData)
 {
 	data->userState[userData->fd] = 0;
+	data->userChannel[userData->fd] = 0;
 	epoll_ctl(data->epFd, EPOLL_CTL_DEL, userData->fd, NULL);
 	close(userData->fd);
 	delete userData;
@@ -83,6 +93,8 @@ void UserEvent(t_data* data, t_userData* userData)
 	//읽기 실패시 유저 삭제
 	catch (std::string msg) {
 		std::cerr << C_ERROR << msg << C_NOMAL << std::endl;
+		std::cerr << C_NOMAL << "TIME   : " << pTime() << std::endl;
+		std::cerr << C_NOMAL << std::endl;
 		RemoveUser(data, userData);
 		return;
 	}
@@ -96,11 +108,11 @@ void UserEvent(t_data* data, t_userData* userData)
 			  << std::endl;
 	std::cout << C_NOMAL << "DATA   : " << arg1 << ", " << arg2 << ", " << text
 			  << C_NOMAL << std::endl;
+	std::cout << C_NOMAL << "TIME   : " << pTime() << std::endl;
+	std::cout << C_NOMAL << std::endl;
 
 	//nick chainge
 	if (std::string(arg1) == std::string("/nick")) {
-		std::cout << C_NOTIY << "CMD    : /nick" << C_NOMAL << std::endl;
-
 		memcpy(userData->name, arg2, DS_ARGV);
 
 		char temp[DS_TEXT];
@@ -110,8 +122,6 @@ void UserEvent(t_data* data, t_userData* userData)
 	}
 	//join channel
 	else if (std::string(arg1) == std::string("/join")) {
-		std::cout << C_NOTIY << "CMD    : /join" << C_NOMAL << std::endl;
-
 		userData->ch = atoi(arg2);
 		data->userChannel[userData->fd] = atoi(arg2);
 
@@ -122,8 +132,6 @@ void UserEvent(t_data* data, t_userData* userData)
 	}
 	//leave channel
 	else if (std::string(arg1) == std::string("/leave")) {
-		std::cout << C_NOTIY << "CMD    : /leave" << C_NOMAL << std::endl;
-
 		userData->ch = 0;
 		data->userChannel[userData->fd] = 0;
 
@@ -134,8 +142,6 @@ void UserEvent(t_data* data, t_userData* userData)
 	}
 	//user exit
 	else if (std::string(arg1) == std::string("/exit")) {
-		std::cout << C_NOTIY << "CMD    : /exit" << C_NOMAL << std::endl;
-
 		char temp[DS_TEXT];
 		memset(temp, 0, DS_TEXT);
 		sprintf(temp, "See You Again! %s", userData->name);
@@ -174,6 +180,8 @@ void NewUeserEvent(t_data* data)
 			  << std::endl;
 	std::cout << C_NOMAL << "INFO   : " << ipAddr << ", " << port << C_NOMAL
 			  << std::endl;
+	std::cout << C_NOMAL << "TIME   : " << pTime() << std::endl;
+	std::cout << C_NOMAL << std::endl;
 
 	//option
 	int bEnable = 1;

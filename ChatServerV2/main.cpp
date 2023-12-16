@@ -103,13 +103,19 @@ int main(int argc, char** argv)
 
 		std::cout << C_STATE << "SERVER : Server Start!" << C_NOMAL
 				  << std::endl;
+		std::cout << C_NOMAL << "TIME   : " << pTime() << std::endl;
+		std::cout << C_NOMAL << std::endl;
 		ServerLoop(&data);
 	}
 	//Critical error
 	catch (std::string msg) {
 		std::cerr << C_ERROR << msg << C_NOMAL << std::endl;
+		std::cerr << C_NOMAL << "TIME   : " << pTime() << std::endl;
+		std::cerr << C_NOMAL << std::endl;
 		return (-1);
 	}
 
 	std::cout << C_STATE << "SERVER : Server End!" << C_NOMAL << std::endl;
+	std::cerr << C_NOMAL << "TIME   : " << pTime() << std::endl;
+	std::cerr << C_NOMAL << std::endl;
 }
