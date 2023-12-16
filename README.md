@@ -14,6 +14,12 @@
 
 클라 소스 : https://github.com/hwahyang1/CK_ChatClient  by KangHyeon
 
+빌드
+1. install make, gcc, c++ on Linux
+2. cd to ChatServerV2
+3. type make
+4. run ./ChatServerV2
+
 # 1. 개요
 
 <네트워크 기초> 과제로 채팅 프로그램을 만들게 되었다.
