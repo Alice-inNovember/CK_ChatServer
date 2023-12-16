@@ -103,7 +103,8 @@ void UserEvent(t_data* data, t_userData* userData)
 
 		memcpy(userData->name, arg2, DS_ARGV);
 
-		char temp[512];
+		char temp[DS_TEXT];
+		memset(temp, 0, DS_TEXT);
 		sprintf(temp, "NickName Changed to : %s", userData->name);
 		SendNotification(userData->fd, temp);
 	}
@@ -114,7 +115,8 @@ void UserEvent(t_data* data, t_userData* userData)
 		userData->ch = atoi(arg2);
 		data->userChannel[userData->fd] = atoi(arg2);
 
-		char temp[512];
+		char temp[DS_TEXT];
+		memset(temp, 0, DS_TEXT);
 		sprintf(temp, "Joind Channel : %d", userData->ch);
 		SendNotification(userData->fd, temp);
 	}
@@ -125,7 +127,8 @@ void UserEvent(t_data* data, t_userData* userData)
 		userData->ch = 0;
 		data->userChannel[userData->fd] = 0;
 
-		char temp[512];
+		char temp[DS_TEXT];
+		memset(temp, 0, DS_TEXT);
 		sprintf(temp, "Joind Channel : %d", userData->ch);
 		SendNotification(userData->fd, temp);
 	}
@@ -133,8 +136,9 @@ void UserEvent(t_data* data, t_userData* userData)
 	else if (std::string(arg1) == std::string("/exit")) {
 		std::cout << C_NOTIY << "CMD    : /exit" << C_NOMAL << std::endl;
 
-		char temp[512] = "See You Again!";
-		strcat(temp, userData->name);
+		char temp[DS_TEXT];
+		memset(temp, 0, DS_TEXT);
+		sprintf(temp, "See You Again! %s", userData->name);
 		SendNotification(userData->fd, temp);
 
 		RemoveUser(data, userData);
