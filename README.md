@@ -2,7 +2,7 @@
 
 # 0. INFO
 
-서버 주소 : [chat.alice-in-nov.com](http://chat.alice-in-nov.com/)
+서버 주소 : chat.alice-in-nov.com
 
 서버 포트 : 25000
 
