@@ -168,6 +168,12 @@ void NewUeserEvent(t_data* data)
 	//user accept()
 	cliLen = sizeof(t_sockAddr);
 	userFd = accept(data->svFd, (t_sockAddr*)&addr, &cliLen);
+	if (userFd == -1) {
+		std::cerr << C_ERROR << "ERROR  : accept()" << C_NOMAL << std::endl;
+		std::cerr << C_NOMAL << "TIME   : " << pTime() << std::endl;
+		std::cerr << C_NOMAL << std::endl;
+		return;
+	}
 
 	//ip 정보 가져오기
 	int port = ntohs(addr.sin_port);
